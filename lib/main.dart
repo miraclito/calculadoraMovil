@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:calculadora789/comp/CalcButton.dart';
 import 'package:calculadora789/comp/CustomAppBar.dart';
 import 'package:calculadora789/theme/AppTheme.dart';
@@ -15,6 +17,7 @@ class CalcApp extends StatefulWidget {
 class CalcAppState extends State<CalcApp> {
   String valorAnt = '';
   String operador = '';
+
   TextEditingController _controller = new TextEditingController();
   void numClick(String text) {
     setState(() => _controller.text += text);
@@ -61,6 +64,18 @@ class CalcAppState extends State<CalcApp> {
           _controller.text =
               (int.parse(valorAnt) % int.parse(_controller.text)).toString();
           break;
+        case "■²":
+          _controller.text = (int.parse(valorAnt) * int.parse(valorAnt)).toString();
+
+          break;
+        case "√" :
+            _controller.text = (sqrt(int.parse(valorAnt))).toString();
+
+          break;
+        case "π" :
+            _controller.text= (3.1415).toString();
+
+            break;
 
       }
     });
@@ -72,12 +87,14 @@ class CalcAppState extends State<CalcApp> {
       ["7","8","9","*"],
       ["4","5","6","-"],
       ["1","2","3","+"],
-      [".","0","00","="]];
+      [".","0","00","="],
+      ["■²","√","π"]];
     List<List> funx=[[clear,clear, opeClick,opeClick ],
       [numClick,numClick, numClick,opeClick ],
       [numClick,numClick, numClick,opeClick ],
       [numClick,numClick, numClick,opeClick ],
-      [numClick,numClick, numClick,resultOperacion ]];
+      [numClick,numClick, numClick,resultOperacion ],
+      [opeClick, opeClick,opeClick]];
     AppTheme.colorX=Colors.blue;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
